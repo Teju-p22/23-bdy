@@ -1,0 +1,139 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday, my love!</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
+<style>
+/* ---------- GLOBAL ---------- */
+:root{
+  --bg:#fffaf0; --ink:#24324a; --accent:#ff6b81; --hint:#aa4a44;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Pacifico',cursive;text-align:center}
+
+/* sections */
+section{display:none;min-height:100vh;padding:2.5rem 1rem}
+.show{display:block}
+
+/* ---------- LANDING ---------- */
+h1{font-size:2.8rem;margin-bottom:.3em}
+.hearts{color:var(--accent);font-size:1.6rem;animation:float 1.6s ease-in-out infinite}
+@click{color:var(--hint);font-size:1.2rem;margin-bottom:1.4rem}
+.main-doodle{width:230px;cursor:pointer;transition:transform .3s}
+.main-doodle:hover{transform:scale(1.05)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ---------- MENU ---------- */
+#menu{display:flex;flex-wrap:wrap;justify-content:center;gap:2.5rem;margin-top:2.8rem}
+.icon{width:90px;cursor:pointer;transition:transform .25s}
+.icon:hover{transform:scale(1.15)}
+
+/* ---------- LETTER / REASONS ---------- */
+.content{max-width:750px;margin:auto;padding-top:1rem;line-height:1.6}
+ul{list-style:none;padding:0;margin-top:1.4rem}
+li{background:#fde7d7;margin:.45rem 0;padding:.75rem 1rem;border-radius:10px}
+li::before{content:"❤ ";color:var(--accent)}
+
+/* ---------- ALBUM ---------- */
+#frame{max-width:100%;height:calc(100vh - 190px);object-fit:contain;margin-top:1rem}
+button{font-family:'Pacifico',cursive;background:var(--accent);color:#fff;font-size:1.1rem;
+        border:none;border-radius:10px;padding:.4rem 1.2rem;margin:0 .6rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- ✨ LANDING PAGE -->
+<section id="landing" class="show">
+  <h1>Happy Birthday, my love! <span class="hearts">❤❤❤</span></h1>
+  <div @click>click me ↓</div>
+
+  <!-- MAIN COUPLE DOODLE -->
+  <svg class="main-doodle" viewBox="0 0 120 140" onclick="openMenu()">
+    <path fill="none" stroke="var(--ink)" stroke-width="3"
+      d="M30 40a12 12 0 1 1 24 0 12 12 0 1 1-24 0M66 40a12 12 0 1 1 24 0 12 12 0 1 1-24 0
+         M42 54v45M78 54v45M42 75h36M30 99l-8 26M90 99l8 26M42 99l12 12 12-12M78 99" />
+  </svg>
+
+  <!-- MENU ICONS (appear after click) -->
+  <div id="menu" style="display:none">
+    <!-- Letter icon -->
+    <svg class="icon" viewBox="0 0 80 60" onclick="show('letter')">
+      <rect x="5" y="5" width="70" height="50" rx="5" ry="5" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <polyline points="5,5 40,35 75,5" fill="none" stroke="var(--ink)" stroke-width="3"/>
+    </svg>
+    <!-- 23 reasons icon -->
+    <svg class="icon" viewBox="0 0 80 80" onclick="show('reasons')">
+      <rect x="15" y="5" width="50" height="70" rx="6" ry="6" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <text x="40" y="45" font-size="28" text-anchor="middle" fill="var(--ink)" font-family="Arial">23</text>
+    </svg>
+    <!-- Album icon -->
+    <svg class="icon" viewBox="0 0 90 60" onclick="show('album')">
+      <path d="M10 10h30v40H10zm40 0h30v40H50" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="25" cy="30" r="8" fill="none" stroke="var(--ink)" stroke-width="3"/>
+      <circle cx="65" cy="30" r="8" fill="none" stroke="var(--ink)" stroke-width="3"/>
+    </svg>
+  </div>
+</section>
+
+<!-- 💌 LETTER SECTION -->
+<section id="letter">
+  <h1>My Letter to You 💌</h1>
+  <div class="content">
+    <p>Dear love,</p>
+    <p>(Write your heartfelt message here…)</p>
+    <p style="margin-top:1.5rem"><button onclick="back()">← back</button></p>
+  </div>
+</section>
+
+<!-- ❤️ 23 REASONS SECTION -->
+<section id="reasons">
+  <h1>23 Reasons Why I Love You</h1>
+  <div class="content">
+    <ul>
+      <li>You make me feel safe</li>
+      <li>You listen — truly listen</li>
+      <li>Your smile melts away even the worst days</li>
+      <!-- …add the rest of your 23 reasons here… -->
+      <li>Because you’re you — and that’s all I ever needed</li>
+    </ul>
+    <p style="margin-top:1.5rem"><button onclick="back()">← back</button></p>
+  </div>
+</section>
+
+<!-- 📸 ALBUM SECTION -->
+<section id="album">
+  <h1>Our Little Photo Book 📖</h1>
+  <img id="frame" src="1.jpg" alt="album image"/>
+  <div style="margin:1rem">
+    <button onclick="prev()">Prev</button>
+    <button onclick="next()">Next</button>
+    <button onclick="back()" style="margin-left:1rem">← back</button>
+  </div>
+</section>
+
+<!-- ---------- JS ---------- -->
+<script>
+/* simple router */
+function show(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+}
+function back(){
+  show('landing');
+}
+/* landing → show menu */
+function openMenu(){  document.getElementById('menu').style.display='flex'; }
+
+/* album slider */
+const pics=['1.jpg','2.jpg','3.jpg','4.jpg']; // make sure these files sit next to index.html
+let i=0;
+function render(){ document.getElementById('frame').src=pics[i]; }
+function next(){ i=(i+1)%pics.length; render(); }
+function prev(){ i=(i-1+pics.length)%pics.length; render(); }
+</script>
+</body>
+</html>
